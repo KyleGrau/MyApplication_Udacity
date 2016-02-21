@@ -31,6 +31,11 @@ public class MainActivityFragment extends Fragment {
 
     }
 
+    @Override
+    public void onCreate(Bundle savedInstanceState){
+        super.onCreate(savedInstanceState);
+        this.setHasOptionsMenu(true);
+    }
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.forcastfragment, menu);
     }
@@ -38,7 +43,7 @@ public class MainActivityFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        this.setHasOptionsMenu(true);
+
         View rootView = inflater.inflate(R.layout.fragment_main,container, false);
         String[] data = {
                 "Mon 6/23 - Sunny - 31/17",
