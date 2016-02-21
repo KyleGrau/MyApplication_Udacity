@@ -47,6 +47,7 @@ public class MainActivityFragment extends Fragment {
         ListView nameView = (ListView) rootView.findViewById(R.id.list_item_forecast);
         //Bind the ArrayAdapter to the ListView view
         nameView.setAdapter(myAdapter);
+        //Since all the work pertains to rootView View found by inflater, return it to calling method
         return rootView;
     }
 }
