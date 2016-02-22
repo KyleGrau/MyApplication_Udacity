@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -36,8 +37,20 @@ public class MainActivityFragment extends Fragment {
         super.onCreate(savedInstanceState);
         this.setHasOptionsMenu(true);
     }
+
+    @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.forcastfragment, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if(id == R.id.action_refesh) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
