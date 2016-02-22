@@ -193,10 +193,14 @@ public class MainActivityFragment extends Fragment {
         }
 
         @Override
-        protected void onPostExecute(String[] strings) {
-            super.onPostExecute(strings);
-            myAdapter.clear();
-            myAdapter.addAll(strings);
+        protected void onPostExecute(String[] result) {
+            if(result != null) {
+                myAdapter.clear();
+                for (String dayForecastStr : result) {
+                    myAdapter.add(dayForecastStr);
+                }
+            }
+
         }
 
         /* The date/time conversion code is going to be moved outside the asynctask later,
