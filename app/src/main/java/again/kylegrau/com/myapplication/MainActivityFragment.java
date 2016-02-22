@@ -35,6 +35,8 @@ import java.util.List;
  */
 public class MainActivityFragment extends Fragment {
 
+    ArrayAdapter<String> myAdapter;
+
     public MainActivityFragment() {
 
     }
@@ -83,7 +85,7 @@ public class MainActivityFragment extends Fragment {
         //Initialize a list object with the contents of the data string array
         List<String> stuff = new ArrayList<String>(Arrays.asList(data));
         //Set an adapter on this activity, with the list_item_forecast layout, bind it to thi list_item_forecast_textview TextView, and with the List stuff
-        ArrayAdapter<String> myAdapter = new ArrayAdapter<String>(this.getActivity(),R.layout.list_item_forecast, R.id.list_item_forecast_textview,stuff);
+        myAdapter = new ArrayAdapter<String>(this.getActivity(),R.layout.list_item_forecast, R.id.list_item_forecast_textview,stuff);
         //Get the view from the root view
         ListView nameView = (ListView) rootView.findViewById(R.id.list_item_forecast);
         //Bind the ArrayAdapter to the ListView view
@@ -131,7 +133,7 @@ public class MainActivityFragment extends Fragment {
                 // Possible parameters are avaiable at OWM's forecast API page, at
                 // http://openweathermap.org/API#forecast
                 URL url = new URL(builtUri.toString());
-                Log.v(LOG_TAG, builtUri.toString());
+                //Log.v(LOG_TAG, builtUri.toString());
 
                 // Create the request to OpenWeatherMap, and open the connection
                 urlConnection = (HttpURLConnection) url.openConnection();
@@ -161,7 +163,8 @@ public class MainActivityFragment extends Fragment {
                 }
                 forecastJsonStr = buffer.toString();
 
-                Log.v(LOG_TAG, "Forecast JSON String: " + forecastJsonStr);
+                //
+                //Log.v(LOG_TAG, "Forecast JSON String: " + forecastJsonStr);
             } catch (IOException e) {
                 Log.e(LOG_TAG, "Error ", e);
                 // If the code didn't successfully get the weather data, there's no point in attemping
@@ -189,9 +192,16 @@ public class MainActivityFragment extends Fragment {
             return null;
         }
 
+        @Override
+        protected void onPostExecute(String[] strings) {
+            super.onPostExecute(strings);
+            myAdapter.clear();
+            myAdapter.addAll(strings);
+        }
+
         /* The date/time conversion code is going to be moved outside the asynctask later,
-             * so for convenience we're breaking it out into its own method now.
-             */
+                     * so for convenience we're breaking it out into its own method now.
+                     */
         private String getReadableDateString(long time){
             // Because the API returns a unix timestamp (measured in seconds),
             // it must be converted to milliseconds in order to be converted to valid date.
@@ -281,9 +291,9 @@ public class MainActivityFragment extends Fragment {
                 resultStrs[i] = day + " - " + description + " - " + highAndLow;
             }
 
-            for (String s : resultStrs) {
+            /*for (String s : resultStrs) {
                 Log.v(LOG_TAG, "Forecast entry: " + s);
-            }
+            }*/
             return resultStrs;
 
         }
