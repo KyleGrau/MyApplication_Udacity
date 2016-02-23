@@ -102,6 +102,15 @@ public class MainActivityFragment extends Fragment {
             }
         });
         //Since all the work pertains to rootView View found by inflater, return it to calling method
+        nameView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String forecast = parent.getAdapter().getItem(position).toString();
+                Toast.makeText(getActivity(), forecast, Toast.LENGTH_SHORT).show();
+
+            }
+        });
         return rootView;
     }
 
