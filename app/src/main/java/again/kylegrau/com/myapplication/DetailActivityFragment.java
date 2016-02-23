@@ -16,6 +16,7 @@ public class DetailActivityFragment extends Fragment {
     public DetailActivityFragment() {
     }
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -29,4 +30,8 @@ public class DetailActivityFragment extends Fragment {
 
         return rootview;
     }
+
+
+
+
 }
