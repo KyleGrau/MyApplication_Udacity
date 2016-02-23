@@ -1,5 +1,6 @@
 package again.kylegrau.com.myapplication;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -106,8 +107,12 @@ public class MainActivityFragment extends Fragment {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                //String forecast = parent.getAdapter().getItem(position).toString();
+                //Toast.makeText(getActivity(), forecast, Toast.LENGTH_SHORT).show();
                 String forecast = parent.getAdapter().getItem(position).toString();
-                Toast.makeText(getActivity(), forecast, Toast.LENGTH_SHORT).show();
+                Intent viewDetails = new Intent(getActivity(), DetailActivity.class);
+                viewDetails.putExtra(Intent.EXTRA_TEXT, forecast);
+                startActivity(viewDetails);
 
             }
         });
