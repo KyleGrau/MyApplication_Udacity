@@ -32,8 +32,6 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -55,6 +53,12 @@ public class MainActivityFragment extends Fragment {
     }
 
     @Override
+    public void onStart() {
+        super.onStart();
+        updateWeather();
+    }
+
+    @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.forcastfragment, menu);
     }
@@ -65,38 +69,30 @@ public class MainActivityFragment extends Fragment {
 
         //Refresh the location when preferences change, done manually for now
         if(id == R.id.action_refesh) {
-            FetchWeatherClass handler = new FetchWeatherClass();
-            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
-            String location = prefs.getString(getString(R.string.location_key), getString(R.string.location_default));
-            handler.execute(location);
+            updateWeather();
         }
 
         return super.onOptionsItemSelected(item);
     }
+
+    private void updateWeather() {
+        FetchWeatherClass handler = new FetchWeatherClass();
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        String location = prefs.getString(getString(R.string.location_key), getString(R.string.location_default));
+        if(location == "" ) {
+            location = getString(R.string.location_default);
+        }
+        handler.execute(location);
+    }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.fragment_main,container, false);
-        String[] data = {
-                "Mon 6/23 - Sunny - 31/17",
-                "Tue 6/24 - Foggy - 21/8",
-                "Wed 6/25 - Cloudy - 22/17",
-                "Thurs 6/26 - Rainy - 18/11",
-                "Fri 6/27 - Foggy - 21/10",
-                "Sat 6/28 - TRAPPED IN WEATHERSTATION - 23/18",
-                "Sun 6/29 - Sunny - 20/7",
-                "Blah",
-                "Blah",
-                "Blah",
-                "Blah",
-                "Blah",
-        };
-        //Initialize a list object with the contents of the data string array
-        List<String> stuff = new ArrayList<String>(Arrays.asList(data));
         //Set an adapter on this activity, with the list_item_forecast layout, bind it to thi list_item_forecast_textview TextView, and with the List stuff
-        myAdapter = new ArrayAdapter<String>(this.getActivity(),R.layout.list_item_forecast, R.id.list_item_forecast_textview,stuff);
+        myAdapter = new ArrayAdapter<String>(this.getActivity(),R.layout.list_item_forecast, R.id.list_item_forecast_textview, new ArrayList<String>());
         //Get the view from the root view
         ListView nameView = (ListView) rootView.findViewById(R.id.list_item_forecast);
         //Bind the ArrayAdapter to the ListView view

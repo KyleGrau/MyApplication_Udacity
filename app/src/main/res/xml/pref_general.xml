@@ -6,7 +6,7 @@
         android:title="@string/location_label"
         android:key="@string/location_key"
         android:defaultValue="@string/location_default"
-        android:inputType="number"
+        android:inputType="text"
         android:singleLine="true"
         />
 
