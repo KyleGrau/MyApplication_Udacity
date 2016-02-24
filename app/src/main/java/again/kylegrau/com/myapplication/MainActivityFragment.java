@@ -1,9 +1,11 @@
 package again.kylegrau.com.myapplication;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.text.format.Time;
 import android.util.Log;
@@ -40,6 +42,7 @@ public class MainActivityFragment extends Fragment {
 
     ArrayAdapter<String> myAdapter;
 
+
     public MainActivityFragment() {
 
     }
@@ -48,6 +51,7 @@ public class MainActivityFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         this.setHasOptionsMenu(true);
+
     }
 
     @Override
@@ -58,9 +62,13 @@ public class MainActivityFragment extends Fragment {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
+
+        //Refresh the location when preferences change, done manually for now
         if(id == R.id.action_refesh) {
             FetchWeatherClass handler = new FetchWeatherClass();
-            handler.execute("94043");
+            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+            String location = prefs.getString(getString(R.string.location_key), getString(R.string.location_default));
+            handler.execute(location);
         }
 
         return super.onOptionsItemSelected(item);
