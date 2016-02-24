@@ -79,7 +79,7 @@ public class MainActivityFragment extends Fragment {
         FetchWeatherClass handler = new FetchWeatherClass();
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
         String location = prefs.getString(getString(R.string.location_key), getString(R.string.location_default));
-        if(location == "" ) {
+        if(location.isEmpty()) {
             location = getString(R.string.location_default);
         }
         handler.execute(location);
@@ -247,11 +247,25 @@ public class MainActivityFragment extends Fragment {
          */
         private String formatHighLows(double high, double low) {
             // For presentation, assume the user doesn't care about tenths of a degree.
-            long roundedHigh = Math.round(high);
-            long roundedLow = Math.round(low);
+            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+            String units = (String) prefs.getString(getString(R.string.units_key), getString(R.string.unit_default));
+            Log.d("UNITS", units);
+            long roundedHigh;
+            long roundedLow;
+            if(units.equals("Metric")) {
+                roundedHigh = Math.round(high);
+                roundedLow = Math.round(low);
+            } else {
+                roundedHigh = Math.round(convertFahrenheit(high));
+                roundedLow = Math.round(convertFahrenheit(low));
+            }
 
             String highLowStr = roundedHigh + "/" + roundedLow;
             return highLowStr;
+        }
+
+        private double convertFahrenheit(double celcius) {
+            return (celcius * (9.0/5.0)) + 32;
         }
 
         /**
