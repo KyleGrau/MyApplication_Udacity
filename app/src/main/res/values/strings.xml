@@ -11,4 +11,11 @@
     <string name="location_default" translatable="false">78731</string>
 
     <!-- Strings related to Location Settings -->
+    <string name="units_key" translatable="false">units</string>
+    <string name="units_label">Units</string>
+    <string name="unit_default" translatable="false">Metric</string>
+    <string-array name="unit_names">
+        <item>Metric</item>
+        <item>Imperial</item>
+    </string-array>
 </resources>

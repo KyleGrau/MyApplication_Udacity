@@ -5,6 +5,7 @@ import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
+import android.util.Log;
 
 /***
  * Created by kgrau on 2/23/2016.
@@ -17,6 +18,7 @@ public class SettingsFragment extends PreferenceFragment implements Preference.O
         addPreferencesFromResource(R.xml.pref_general);
         
         bindPreferenceSummaryToValue(findPreference(getString(R.string.location_key)));
+        bindPreferenceSummaryToValue(findPreference(getString(R.string.units_key)));
     }
 
     //Private method to implement binding summary to value
@@ -31,6 +33,8 @@ public class SettingsFragment extends PreferenceFragment implements Preference.O
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue) {
         String stringValue = newValue.toString();
+
+        Log.d("BLAH", stringValue);
 
         if(preference instanceof ListPreference) {
             //Find key value pair for list preferences

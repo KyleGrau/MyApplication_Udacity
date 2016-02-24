@@ -10,5 +10,14 @@
         android:singleLine="true"
         />
 
+    <ListPreference
+        android:title="@string/units_label"
+        android:key="@string/units_key"
+        android:defaultValue="@string/unit_default"
+        android:dialogTitle="@string/units_label"
+        android:entries="@array/unit_names"
+        android:entryValues="@array/unit_names"
+        />
+
 
 </PreferenceScreen>
