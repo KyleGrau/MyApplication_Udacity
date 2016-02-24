@@ -3,7 +3,7 @@ package again.kylegrau.com.myapplication;
 import android.os.Bundle;
 import android.preference.PreferenceFragment;
 
-/**
+/***
  * Created by kgrau on 2/23/2016.
  */
 public class SettingsFragment extends PreferenceFragment {
