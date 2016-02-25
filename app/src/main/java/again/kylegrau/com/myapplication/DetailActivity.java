@@ -2,8 +2,11 @@ package again.kylegrau.com.myapplication;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.ShareActionProvider;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -24,6 +27,22 @@ public class DetailActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_detail, menu);
+
+        MenuItem shareItem = menu.findItem(R.id.action_share);
+        ShareActionProvider myShareActionProvider = (ShareActionProvider) MenuItemCompat.getActionProvider(shareItem);
+
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("text/plain");
+        if(this.getIntent() != null && this.getIntent().hasExtra(Intent.EXTRA_TEXT)) {
+            String text = this.getIntent().getStringExtra(Intent.EXTRA_TEXT) + "#myapp";
+            Log.d("LOG", text);
+            intent.putExtra(Intent.EXTRA_TEXT, text);
+        } else {
+            Log.d("LOG", "No Text???");
+        }
+
+        myShareActionProvider.setShareIntent(intent);
+
         return true;
     }
 

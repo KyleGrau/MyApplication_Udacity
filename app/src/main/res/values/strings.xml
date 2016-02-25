@@ -7,6 +7,7 @@
 
     <!--Menu Related Strings-->
     <string name="action_map" >Show Map</string>
+    <string name="share_title">Share</string>
 
     <!-- Strings related to Location Settings -->
     <string name="location_key" translatable="false">location</string>
