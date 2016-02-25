@@ -5,6 +5,9 @@
     <string name="title_activity_detail">DetailActivity</string>
     <string name="title_activity_settings">Settings</string>
 
+    <!--Menu Related Strings-->
+    <string name="action_map" >Show Map</string>
+
     <!-- Strings related to Location Settings -->
     <string name="location_key" translatable="false">location</string>
     <string name="location_label">Location</string>
